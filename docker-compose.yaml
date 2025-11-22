@@ -1,0 +1,53 @@
+services:
+  # MARK: Redis
+  puchero-redis:
+    image: redis
+    restart: unless-stopped
+    volumes:
+      - puchero_redis:/data
+    expose:
+      - 6379
+    networks:
+      - acme_un_puchero
+  # MARK: Application
+  acme-un-puchero:
+    build: .
+    restart: unless-stopped
+    expose:
+      - $PORT
+    depends_on:
+      - puchero-redis
+    volumes:
+      - ./database:/app/database
+    environment:
+      # -- Environment Variables --
+      PORT: $PORT
+      NODE_ENV: production
+
+      # -- Persistence --
+      DATABASE_PATH: $DATABASE_PATH
+      REDIS_CACHE_URL: $REDIS_CACHE_URL
+
+      # -- Security --
+      JWT_SECRET: $JWT_SECRET
+      JWT_EXPIRES_IN_SECONDS: $JWT_EXPIRES_IN_SECONDS
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.puchero.rule=Host(`$HOST`)"
+      - "traefik.http.routers.puchero.entryPoints=web,websecure"
+      - "traefik.http.routers.puchero.middlewares=secured-external"
+      - "traefik.http.services.puchero.loadbalancer.server.port=$PORT"
+    networks:
+      - traefik_network
+      - acme_un_puchero
+
+volumes:
+  puchero_redis:
+
+networks:
+  traefik_network:
+    external: true
+    name: ${DEFAULT_NETWORK}
+  acme_un_puchero:
+    external: false
+
