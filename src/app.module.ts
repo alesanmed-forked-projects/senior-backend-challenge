@@ -28,7 +28,14 @@ import { KeyvCacheableMemory } from 'cacheable';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const nodeEnv = configService.get<string>('NODE_ENV');
-        const level = nodeEnv !== 'production' ? 'debug' : 'info';
+        let level = 'info';
+
+        if (nodeEnv === 'development') {
+          level = 'debug';
+        } else if (nodeEnv === 'test') {
+          level = 'silent';
+        }
+
         const transport =
           nodeEnv !== 'production' ? { target: 'pino-pretty' } : undefined;
 
