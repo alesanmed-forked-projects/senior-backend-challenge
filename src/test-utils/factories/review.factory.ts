@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { faker } from '@faker-js/faker';
 import { SqliteReview } from 'src/reviews/infrastructure/persistence/review.mapper';
 
-export const createReviewData = (overrides?: Partial<unknown>) => ({
+export const stubReviewData = (overrides?: Partial<unknown>) => ({
   id: faker.number.int({ min: 1, max: 1000 }),
   userId: faker.number.int({ min: 1, max: 100 }),
   restaurantId: faker.number.int({ min: 1, max: 100 }),
@@ -16,7 +16,7 @@ export const createReviewData = (overrides?: Partial<unknown>) => ({
 });
 
 export const stubReview = (overrides?: Partial<unknown>): Review => {
-  return Review.fromData(createReviewData(overrides));
+  return Review.fromData(stubReviewData(overrides));
 };
 
 export const stubSqliteReview = (
