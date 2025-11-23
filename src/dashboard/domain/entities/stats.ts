@@ -1,7 +1,7 @@
 import { InvalidStatsData } from '../errors/invalid-stats-data.error';
 import { RestaurantData } from '../interfaces/restaurant-data.interface';
 
-interface StatsData {
+export interface StatsData {
   totalRestaurants: number;
   totalReviews: number;
   totalUsers: number;
