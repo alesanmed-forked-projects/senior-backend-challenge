@@ -34,11 +34,15 @@ jobs:
       - name: Lint files
         run: pnpm lint
       - name: Run tests
-        run: pnpm test
+        run: pnpm test:cov
         env:
           NODE_ENV: test
           DATABASE_PATH: './restaurants.db'
           JWT_SECRET: 'supersecret'
           JWT_EXPIRES_IN_SECONDS: 3600
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build app
         run: pnpm build
