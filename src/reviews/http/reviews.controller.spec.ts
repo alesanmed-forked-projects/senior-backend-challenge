@@ -13,6 +13,7 @@ import { faker } from '@faker-js/faker';
 import { HttpStatus } from '@nestjs/common';
 import { RestaurantNotFound } from 'src/restaurants/domain/errors/restaurant-not-found.error';
 import { ReviewNotFound } from 'src/reviews/domain/errors/review-not-found.error';
+import { Response } from 'express';
 
 describe('ReviewsController', () => {
   let controller: ReviewsController;
@@ -25,23 +26,23 @@ describe('ReviewsController', () => {
   beforeEach(() => {
     findReviewsByRestaurantIdUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as FindReviewsUsecase;
 
     findReviewsByUserUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as FindReviewsByUserUsecase;
 
     createReviewUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as CreateReviewUsecase;
 
     updateReviewUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as UpdateReviewUsecase;
 
     deleteReviewUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as DeleteReviewUsecase;
 
     controller = new ReviewsController(
       findReviewsByRestaurantIdUsecase,
@@ -110,7 +111,7 @@ describe('ReviewsController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(createReviewUsecase.execute).mockResolvedValue(reviewId);
 
@@ -140,7 +141,7 @@ describe('ReviewsController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(createReviewUsecase.execute).mockRejectedValue(
         new RestaurantNotFound(restaurantId),

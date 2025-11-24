@@ -13,9 +13,13 @@ describe('FavoriteController', () => {
   let deleteFavoriteUsecase: DeleteFavoriteUsecase;
 
   beforeEach(() => {
-    getFavoritesUsecase = { execute: vi.fn() } as any;
-    addFavoriteUsecase = { execute: vi.fn() } as any;
-    deleteFavoriteUsecase = { execute: vi.fn() } as any;
+    getFavoritesUsecase = {
+      execute: vi.fn(),
+    } as unknown as GetFavoritesUsecase;
+    addFavoriteUsecase = { execute: vi.fn() } as unknown as AddFavoriteUsecase;
+    deleteFavoriteUsecase = {
+      execute: vi.fn(),
+    } as unknown as DeleteFavoriteUsecase;
 
     controller = new FavoriteController(
       getFavoritesUsecase,
@@ -32,9 +36,7 @@ describe('FavoriteController', () => {
       const restaurants = [stubRestaurant(), stubRestaurant()];
       const expectedDtos = restaurants.map(HttpRestaurantMapper.toDto);
 
-      vi.mocked(getFavoritesUsecase.execute).mockResolvedValue(
-        restaurants as any,
-      );
+      vi.mocked(getFavoritesUsecase.execute).mockResolvedValue(restaurants);
 
       const result = await controller.getFavorites(authUser);
 

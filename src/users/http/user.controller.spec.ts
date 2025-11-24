@@ -11,7 +11,7 @@ describe('UserController', () => {
   beforeEach(() => {
     getUserUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as GetUserUsecase;
 
     controller = new UserController(getUserUsecase);
     vi.clearAllMocks();

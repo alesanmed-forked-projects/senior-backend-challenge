@@ -17,10 +17,7 @@ describe('FindReviewsUsecase', () => {
   beforeEach(() => {
     reviewRepository = createReviewRepositoryMock();
     restaurantRepository = createRestaurantRepositoryMock();
-    usecase = new FindReviewsUsecase(
-      reviewRepository as any,
-      restaurantRepository as any,
-    );
+    usecase = new FindReviewsUsecase(reviewRepository, restaurantRepository);
     vi.clearAllMocks();
   });
 

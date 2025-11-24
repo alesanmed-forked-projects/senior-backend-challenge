@@ -5,10 +5,11 @@ import { ConfigService } from '@nestjs/config';
 import { AuthUser } from 'src/auth/domain/auth-user';
 import { UserRole } from 'src/users/domain/value-objects/user-role.vo';
 
-interface JwtPayload {
+export interface JwtPayload {
   sub: number;
   email: string;
   role: string;
+  iat: number;
 }
 
 @Injectable()

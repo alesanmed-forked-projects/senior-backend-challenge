@@ -10,7 +10,7 @@ describe('FindRestaurantUsecase', () => {
 
   beforeEach(() => {
     restaurantRepository = createRestaurantRepositoryMock();
-    usecase = new FindRestaurantUsecase(restaurantRepository as any);
+    usecase = new FindRestaurantUsecase(restaurantRepository);
     vi.clearAllMocks();
   });
 

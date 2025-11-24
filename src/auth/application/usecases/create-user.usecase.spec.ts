@@ -25,7 +25,7 @@ describe('CreateUserUsecase', () => {
 
   beforeEach(() => {
     userRepository = createUserRepositoryMock();
-    usecase = new CreateUserUsecase(userRepository as any);
+    usecase = new CreateUserUsecase(userRepository);
     vi.clearAllMocks();
   });
 

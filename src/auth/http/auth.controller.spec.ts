@@ -7,6 +7,7 @@ import { HttpStatus } from '@nestjs/common';
 import { SignJwtUsecase } from 'src/auth/application/usecases/sign-jwt.usecase';
 import { CreateUserUsecase } from 'src/auth/application/usecases/create-user.usecase';
 import { UserAlreadyExists } from 'src/auth/domain/errors/user-exists.error';
+import { Response } from 'express';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -16,11 +17,11 @@ describe('AuthController', () => {
   beforeEach(() => {
     signJwtUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as SignJwtUsecase;
 
     createUserUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as CreateUserUsecase;
 
     controller = new AuthController(signJwtUsecase, createUserUsecase);
     vi.clearAllMocks();
@@ -51,7 +52,7 @@ describe('AuthController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(createUserUsecase.execute).mockResolvedValue();
 
@@ -76,7 +77,7 @@ describe('AuthController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       await expect(
         controller.register(createUserDto, mockResponse),

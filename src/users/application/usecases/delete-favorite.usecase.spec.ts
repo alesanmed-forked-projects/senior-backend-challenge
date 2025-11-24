@@ -10,7 +10,7 @@ describe('DeleteFavoriteUsecase', () => {
 
   beforeEach(() => {
     favoriteRepository = createFavoriteRepositoryMock();
-    usecase = new DeleteFavoriteUsecase(favoriteRepository as any);
+    usecase = new DeleteFavoriteUsecase(favoriteRepository);
     vi.clearAllMocks();
   });
 

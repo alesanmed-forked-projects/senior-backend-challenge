@@ -16,7 +16,7 @@ describe('SqliteStatsRepository - Integration', () => {
 
   beforeEach(async () => {
     db = getDb();
-    repository = new SqliteStatsRepository(db as any);
+    repository = new SqliteStatsRepository(db);
 
     // Insert users
     const user1 = stubSqliteUser();

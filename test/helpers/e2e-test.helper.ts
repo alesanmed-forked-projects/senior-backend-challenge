@@ -12,6 +12,8 @@ import {
 import { createTestDatabase, initializeSchema } from './test-database.helper';
 import { MockCacheInterceptor } from './mock-cache.interceptor';
 import { HttpCacheInterceptor } from 'src/core/http/interceptors/cache.interceptor';
+import { SqliteRestaurant } from 'src/restaurants/infrastructure/persistence/restaurant.mapper';
+import { SqliteReview } from 'src/reviews/infrastructure/persistence/review.mapper';
 
 export interface TestAppModule {
   app: INestApplication;
@@ -71,7 +73,7 @@ export async function createTestUser(
  */
 export async function createTestRestaurant(
   db: Knex,
-  overrides?: Partial<any>,
+  overrides?: Partial<SqliteRestaurant>,
 ): Promise<number> {
   const sqliteRestaurant = stubSqliteRestaurant(overrides);
   delete sqliteRestaurant.id;
@@ -89,7 +91,7 @@ export async function createTestReview(
   db: Knex,
   userId: number,
   restaurantId: number,
-  overrides?: Partial<any>,
+  overrides?: Partial<SqliteReview>,
 ): Promise<number> {
   const sqliteReview = stubSqliteReview({
     user_id: userId,

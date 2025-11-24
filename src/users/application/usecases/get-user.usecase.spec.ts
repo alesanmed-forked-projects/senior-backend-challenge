@@ -10,7 +10,7 @@ describe('GetUserUsecase', () => {
 
   beforeEach(() => {
     userRepository = createUserRepositoryMock();
-    usecase = new GetUserUsecase(userRepository as any);
+    usecase = new GetUserUsecase(userRepository);
     vi.clearAllMocks();
   });
 

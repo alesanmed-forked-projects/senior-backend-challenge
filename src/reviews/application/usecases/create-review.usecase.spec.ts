@@ -11,7 +11,7 @@ describe('CreateReviewUsecase', () => {
 
   beforeEach(() => {
     reviewRepository = createReviewRepositoryMock();
-    usecase = new CreateReviewUsecase(reviewRepository as any);
+    usecase = new CreateReviewUsecase(reviewRepository);
     vi.clearAllMocks();
   });
 

@@ -21,7 +21,7 @@ describe('ValidateUserUsecase', () => {
 
   beforeEach(() => {
     userRepository = createUserRepositoryMock();
-    usecase = new ValidateUserUsecase(userRepository as any);
+    usecase = new ValidateUserUsecase(userRepository);
     vi.clearAllMocks();
     vi.mocked(bcrypt.compare).mockResolvedValue(true as never);
   });

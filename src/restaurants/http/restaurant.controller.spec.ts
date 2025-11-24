@@ -13,6 +13,7 @@ import { HttpStatus } from '@nestjs/common';
 import { UpdateRestaurantUsecase } from '../application/usecases/update-restaurant.usecase';
 import { DeleteRestaurantUsecase } from '../application/usecases/delete-restaurant.usecase';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import { Response } from 'express';
 
 describe('RestaurantController', () => {
   let controller: RestaurantController;
@@ -25,23 +26,23 @@ describe('RestaurantController', () => {
   beforeEach(() => {
     findRestaurantsUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as FindRestaurantsUsecase;
 
     findRestaurantByIdUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as FindRestaurantUsecase;
 
     createRestaurantUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as CreateRestaurantUsecase;
 
     updateRestaurantUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as UpdateRestaurantUsecase;
 
     deleteRestaurantUsecase = {
       execute: vi.fn(),
-    } as any;
+    } as unknown as DeleteRestaurantUsecase;
 
     controller = new RestaurantController(
       findRestaurantsUsecase,
@@ -161,7 +162,7 @@ describe('RestaurantController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(createRestaurantUsecase.execute).mockResolvedValue(
         restaurantId,
@@ -196,7 +197,7 @@ describe('RestaurantController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(updateRestaurantUsecase.execute).mockResolvedValue();
 
@@ -227,7 +228,7 @@ describe('RestaurantController', () => {
       const mockResponse = {
         status: vi.fn().mockReturnThis(),
         send: vi.fn(),
-      } as any;
+      } as unknown as Response;
 
       vi.mocked(updateRestaurantUsecase.execute).mockRejectedValue(
         new RestaurantNotFound(id),

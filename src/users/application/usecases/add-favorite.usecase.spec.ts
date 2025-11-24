@@ -16,10 +16,7 @@ describe('AddFavoriteUsecase', () => {
   beforeEach(() => {
     favoriteRepository = createFavoriteRepositoryMock();
     restaurantRepository = createRestaurantRepositoryMock();
-    usecase = new AddFavoriteUsecase(
-      favoriteRepository as any,
-      restaurantRepository as any,
-    );
+    usecase = new AddFavoriteUsecase(favoriteRepository, restaurantRepository);
     vi.clearAllMocks();
   });
 
@@ -27,9 +24,7 @@ describe('AddFavoriteUsecase', () => {
     it('should add a favorite when restaurant exists', async () => {
       const userId = 1;
       const restaurant = stubRestaurant();
-      vi.mocked(restaurantRepository.findById).mockResolvedValue(
-        restaurant as any,
-      );
+      vi.mocked(restaurantRepository.findById).mockResolvedValue(restaurant);
 
       await usecase.execute(userId, restaurant.id!);
 
@@ -58,9 +53,7 @@ describe('AddFavoriteUsecase', () => {
     it('should propagate repository errors', async () => {
       const userId = 1;
       const restaurant = stubRestaurant();
-      vi.mocked(restaurantRepository.findById).mockResolvedValue(
-        restaurant as any,
-      );
+      vi.mocked(restaurantRepository.findById).mockResolvedValue(restaurant);
       vi.mocked(favoriteRepository.create).mockRejectedValue(
         new Error('Database error'),
       );

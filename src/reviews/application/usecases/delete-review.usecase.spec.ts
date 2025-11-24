@@ -10,7 +10,7 @@ describe('DeleteReviewUsecase', () => {
 
   beforeEach(() => {
     reviewRepository = createReviewRepositoryMock();
-    usecase = new DeleteReviewUsecase(reviewRepository as any);
+    usecase = new DeleteReviewUsecase(reviewRepository);
     vi.clearAllMocks();
   });
 

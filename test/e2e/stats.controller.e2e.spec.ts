@@ -9,6 +9,7 @@ import {
   createTestReview,
 } from 'test/helpers/e2e-test.helper';
 import { stubUserData } from 'src/test-utils';
+import { Stats } from 'src/dashboard/domain/entities/stats';
 
 describe('StatsController (E2E)', () => {
   let app: INestApplication;
@@ -71,7 +72,7 @@ describe('StatsController (E2E)', () => {
 
   describe('GET /admin/stats as admin', () => {
     let response: Response;
-    let stats: any;
+    let stats: Stats;
 
     beforeAll(async () => {
       response = await request(app.getHttpServer())

@@ -8,7 +8,7 @@ describe('GetFavoritesUsecase', () => {
 
   beforeEach(() => {
     favoriteRepository = createFavoriteRepositoryMock();
-    usecase = new GetFavoritesUsecase(favoriteRepository as any);
+    usecase = new GetFavoritesUsecase(favoriteRepository);
     vi.clearAllMocks();
   });
 
@@ -18,7 +18,7 @@ describe('GetFavoritesUsecase', () => {
       const restaurants = [stubRestaurant(), stubRestaurant()];
 
       vi.mocked(favoriteRepository.findAllByUserId).mockResolvedValue(
-        restaurants as any,
+        restaurants,
       );
 
       const result = await usecase.execute(userId);

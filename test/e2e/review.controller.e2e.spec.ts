@@ -8,6 +8,7 @@ import {
   createTestReview,
 } from 'test/helpers/e2e-test.helper';
 import { stubUserData } from 'src/test-utils';
+import { HttpReview } from 'src/reviews/http/dto/http-review';
 
 describe('ReviewsController (E2E)', () => {
   let app: INestApplication;
@@ -324,7 +325,7 @@ describe('ReviewsController (E2E)', () => {
         .expect(200);
 
       const createdReview = readResponse.body.find(
-        (r: any) => r.id === newReviewId,
+        (r: HttpReview) => r.id === newReviewId,
       );
       expect(createdReview).toBeDefined();
       expect(createdReview.rating).toBe(5);

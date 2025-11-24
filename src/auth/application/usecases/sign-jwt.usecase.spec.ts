@@ -4,14 +4,16 @@ import { createJwtServiceMock, stubAuthUser } from 'src/test-utils';
 import { AuthUser } from 'src/auth/domain/auth-user';
 import { UserRole } from 'src/users/domain/value-objects/user-role.vo';
 import { Role } from 'src/users/domain/value-objects/role.enum';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from 'src/auth/infrastructure/strategies/jwt.strategy';
 
 describe('SignJwtUsecase', () => {
   let usecase: SignJwtUsecase;
-  let jwtService: ReturnType<typeof createJwtServiceMock>;
+  let jwtService: JwtService;
 
   beforeEach(() => {
     jwtService = createJwtServiceMock();
-    usecase = new SignJwtUsecase(jwtService as any);
+    usecase = new SignJwtUsecase(jwtService);
   });
 
   afterEach(() => {
@@ -35,6 +37,65 @@ describe('SignJwtUsecase', () => {
       expect(result).toBe(token);
     });
 
+    it('should include sub in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload).toHaveProperty('sub');
+    });
+
+    it('should include user id in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload.sub).toBe(user.id);
+    });
+
+    it('should include email in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload).toHaveProperty('email');
+    });
+
+    it('should include user email in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload.email).toBe(user.email);
+    });
+
+    it('should include role in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload).toHaveProperty('role');
+    });
+
+    it('should include user role in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload.role).toBe(user.role.toString());
+    });
+
+    it('should include iat in payload', () => {
+      usecase.execute(user);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload).toHaveProperty('iat');
+    });
+
+    it('should include timestamp in payload', () => {
+      usecase.execute(user);
+
+      const now = Math.floor(Date.now() / 1000);
+
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
+      expect(payload.iat).toBeGreaterThanOrEqual(now);
+      expect(payload.iat).toBeLessThanOrEqual(now + 1);
+    });
+
     it('should generate JWT with admin role', () => {
       user = stubAuthUser({ role: UserRole.fromRole(Role.ADMIN) });
 
@@ -43,39 +104,8 @@ describe('SignJwtUsecase', () => {
 
       usecase.execute(user);
 
-      const payload = vi.mocked(jwtService.sign).mock.calls[0][0];
-      expect(payload.sub).toBe(user.id);
-      expect(payload.email).toBe(user.email);
+      const payload = vi.mocked(jwtService.sign<JwtPayload>).mock.calls[0][0];
       expect(payload.role).toBe(user.role.toString());
-    });
-
-    it('should include timestamp in payload', () => {
-      const beforeTime = Math.floor(Date.now() / 1000);
-
-      usecase.execute(user);
-
-      const afterTime = Math.floor(Date.now() / 1000);
-
-      const payload = vi.mocked(jwtService.sign).mock.calls[0][0];
-      expect(payload.iat).toBeGreaterThanOrEqual(beforeTime);
-      expect(payload.iat).toBeLessThanOrEqual(afterTime);
-    });
-
-    it('should use user ID as subject', () => {
-      usecase.execute(user);
-
-      const payload = vi.mocked(jwtService.sign).mock.calls[0][0];
-      expect(payload.sub).toBe(user.id);
-    });
-
-    it('should include all required fields in payload', () => {
-      usecase.execute(user);
-
-      const payload = vi.mocked(jwtService.sign).mock.calls[0][0];
-      expect('sub' in payload).toBe(true);
-      expect('email' in payload).toBe(true);
-      expect('role' in payload).toBe(true);
-      expect('iat' in payload).toBe(true);
     });
   });
 });

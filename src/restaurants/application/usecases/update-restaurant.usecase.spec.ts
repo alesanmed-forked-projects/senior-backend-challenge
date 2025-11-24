@@ -11,7 +11,7 @@ describe('UpdateRestaurantUsecase', () => {
 
   beforeEach(() => {
     restaurantRepository = createRestaurantRepositoryMock();
-    usecase = new UpdateRestaurantUsecase(restaurantRepository as any);
+    usecase = new UpdateRestaurantUsecase(restaurantRepository);
     vi.clearAllMocks();
   });
 
