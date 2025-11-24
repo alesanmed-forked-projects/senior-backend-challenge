@@ -60,7 +60,7 @@ describe('StatsController (E2E)', () => {
         email: admin.email.toString(),
         password: admin.password,
       })
-      .expect(201);
+      .expect(200);
 
     adminAccessToken = loginResponse.body.access_token;
   });
@@ -172,7 +172,7 @@ describe('StatsController (E2E)', () => {
         email: nonAdmin.email.toString(),
         password: nonAdmin.password,
       })
-      .expect(201);
+      .expect(200);
 
     const token = loginResponse.body.access_token;
 

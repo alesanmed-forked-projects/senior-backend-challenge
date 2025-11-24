@@ -116,7 +116,7 @@ describe('AuthController (E2E)', () => {
           email: user.email.toString(),
           password: user.password,
         })
-        .expect(201);
+        .expect(200);
 
       expect(response.body).toHaveProperty('access_token');
       expect(typeof response.body.access_token).toBe('string');
@@ -174,7 +174,7 @@ describe('AuthController (E2E)', () => {
           email: userData.email.toString(),
           password: userData.password,
         })
-        .expect(201);
+        .expect(200);
 
       expect(response.body).toHaveProperty('access_token');
     });

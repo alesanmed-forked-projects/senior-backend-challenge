@@ -56,7 +56,7 @@ describe('RestaurantController (E2E)', () => {
         email: admin.email.toString(),
         password: admin.password,
       })
-      .expect(201);
+      .expect(200);
 
     adminAccessToken = loginResponse.body.access_token;
   });
@@ -269,7 +269,7 @@ describe('RestaurantController (E2E)', () => {
           email: nonAdminUser.email.toString(),
           password: nonAdminUser.password,
         })
-        .expect(201);
+        .expect(200);
 
       const nonAdminToken = loginResponse.body.access_token;
 
@@ -371,7 +371,7 @@ describe('RestaurantController (E2E)', () => {
           email: nonAdminUser.email.toString(),
           password: nonAdminUser.password,
         })
-        .expect(201);
+        .expect(200);
 
       const nonAdminToken = loginResponse.body.access_token;
 
@@ -440,7 +440,7 @@ describe('RestaurantController (E2E)', () => {
           email: nonAdminUser.email.toString(),
           password: nonAdminUser.password,
         })
-        .expect(201);
+        .expect(200);
 
       const nonAdminToken = loginResponse.body.access_token;
 

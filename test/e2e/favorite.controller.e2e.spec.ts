@@ -33,7 +33,7 @@ describe('FavoriteController (E2E)', () => {
         email: 'favorites@example.com',
         password: 'Password123!@#4567',
       })
-      .expect(201);
+      .expect(200);
 
     accessToken = loginResponse.body.access_token;
 
