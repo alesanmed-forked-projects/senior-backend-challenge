@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpCode,
   HttpStatus,
   Post,
   Res,
@@ -32,6 +33,7 @@ export class AuthController {
   @PublicEndpoint()
   @UseGuards(LocalAuthGuard)
   @Post('/login')
+  @HttpCode(HttpStatus.OK)
   login(@CurrentUser() user: AuthUser) {
     const jwt = this.signJwtUsecase.execute(user);
 

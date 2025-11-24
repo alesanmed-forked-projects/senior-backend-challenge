@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "ci",
         "review",
-        "stats"
+        "stats",
+        "auth"
     ]
 }
