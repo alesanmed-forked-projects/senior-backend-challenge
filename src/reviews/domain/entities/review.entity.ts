@@ -90,7 +90,7 @@ export class Review {
   }
 
   private validateComment(comment: string): void {
-    if (!comment.trim() || comment.length > 400) {
+    if (!comment.trim() || comment.length > 1000) {
       throw new InvalidReviewData('comment', comment);
     }
   }

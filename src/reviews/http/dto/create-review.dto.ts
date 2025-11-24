@@ -28,6 +28,6 @@ export class CreateReviewDto
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(400)
+  @MaxLength(1000)
   comment: string;
 }
