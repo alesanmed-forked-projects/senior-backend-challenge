@@ -3,6 +3,7 @@
         "ci",
         "review",
         "stats",
-        "auth"
+        "auth",
+        "user"
     ]
 }

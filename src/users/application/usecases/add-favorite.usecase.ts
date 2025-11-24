@@ -22,6 +22,17 @@ export class AddFavoriteUsecase {
       throw new RestaurantNotFound(restaurantId);
     }
 
+    const existingFavorite =
+      await this.favoriteRepository.findByUserIdAndRestaurantId(
+        userId,
+        restaurantId,
+      );
+
+    // If the restaurant is already a favorite, just return OK
+    if (existingFavorite) {
+      return;
+    }
+
     await this.favoriteRepository.create(
       Favorite.createNew({
         userId,
