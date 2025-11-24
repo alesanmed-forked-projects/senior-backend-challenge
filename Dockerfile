@@ -5,17 +5,20 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 RUN corepack enable
 
-COPY . /app
-
 WORKDIR /app
+
+COPY pnpm-lock.yaml .
+COPY package.json .
+COPY pnpm-workspace.yaml .
+
 
 FROM base AS production-deps
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod
 
 FROM base AS build
-
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+COPY . .
 RUN pnpm run build
 
 FROM node:22-slim

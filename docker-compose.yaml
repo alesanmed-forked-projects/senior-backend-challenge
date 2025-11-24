@@ -31,6 +31,11 @@ services:
       # -- Security --
       JWT_SECRET: $JWT_SECRET
       JWT_EXPIRES_IN_SECONDS: $JWT_EXPIRES_IN_SECONDS
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 256M
     labels:
       - traefik.enable=true
       - "traefik.http.routers.puchero.rule=Host(`$HOST`)"
