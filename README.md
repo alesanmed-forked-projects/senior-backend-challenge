@@ -18,19 +18,19 @@ A next-generation API (or something like that) for a next-generation restaruant 
 <a href="https://swagger.io/" target="_blank"><img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" alt="Built with Swagger" /></a>
 </p>
 <p align="center">
-<a href="https://app.codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge" >
+<a href="https://app.codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge" target="_blank">
 <img alt="Codecov" src="https://img.shields.io/codecov/c/github/alesanmed-forked-projects/senior-backend-challenge?style=for-the-badge"
 height="30"/>
 </a>
 <img src="./assets/built-with-sabrosura.svg" alt="Built with Forthebadge" height="30"/>
 </p>
 <p align="center">
-<a href="https://app.codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge"><img alt="Codecov" src="https://codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge/graphs/sunburst.svg?token=4ANXHYI4S5" height="240"/></a>
+<a href="https://app.codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge" target="_blank"><img alt="Codecov" src="https://codecov.io/gh/alesanmed-forked-projects/senior-backend-challenge/graphs/sunburst.svg?token=4ANXHYI4S5" height="240"/></a>
 </p>
 
 ## How to use the app?
 
-This app is deployed in the following URL: https://acme-un-puchero.alesanmed.com
+This app is deployed in the following URL: <a href="https://puchero.cloud.alesanchez.es" target="_blank">https://puchero.cloud.alesanchez.es</a>
 
 You can test the app using the following credentials:
 
@@ -53,7 +53,7 @@ The password is the same for every user. The availabe user emails are:
 
 ## How is this app built?
 
-This project is a RESTful API built with NestJS and TypeScript. The architecture is based on [Hexagonal Architecture](<https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)>). A general overview is shown in the following diagram:
+This project is a RESTful API built with NestJS and TypeScript. The architecture is based on <a href="https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)" target="_blank">Hexagonal Architecture</a>. A general overview is shown in the following diagram:
 
 <p align="center">
   <img src="./assets/Architecture.svg" alt="Architecture" height="400"/>
@@ -127,7 +127,7 @@ This app assumes AWS for simplicity, but any other cloud provider would work.
 
 The app would be deployued in a private subnet per environment (development, staging, production). All of those subnets would be in the same VPC.
 
-Inside the subnet, the app would be deployed using ECS, thus allowing automatic horizontal scaling. The main change here would be the database. Since the app uses SQLite and we want multiple instances of the app to share the same database, we would need to use a database that supports multiple instances*. In this case, we would use RDS for PostgreSQL.
+Inside the subnet, the app would be deployed using ECS, thus allowing automatic horizontal scaling. The main change here would be the database. Since the app uses SQLite and we want multiple instances of the app to share the same database, we would need to use a database that supports multiple instances\*. In this case, we would use RDS for PostgreSQL.
 
 There would be also a cache store in the same subnet.
 
@@ -135,7 +135,7 @@ In front of the subnet, there would be a load balancer to distribute the traffic
 
 Finally, there would be an API Gateway to route the traffic from the internet to the load balancer.
 
-*This can be achieved using [rqlite](https://github.com/rqlite/rqlite), but for simplicity, we will use RDS for PostgreSQL.
+\*This can be achieved using <a href="https://github.com/rqlite/rqlite" target="_blank">rqlite</a>, but for simplicity, we will use RDS for PostgreSQL.
 
 ### Second step
 
@@ -155,27 +155,30 @@ These changes would allow the app to scale more easily in the future.
 
 ## Some performance metrics
 
-Using the [current deployment](#how-is-the-app-deployed) and [k6](https://k6.io/), I performed some load tests to check how the app behaves under load.
+Using the [current deployment](#how-is-the-app-deployed) and <a href="https://k6.io/" target="_blank">k6</a>, I performed some load tests to check how the app behaves under load.
 
 First, the server specifications:
-  - Intel(R) Core(TM) i5-10400 CPU @ 2.90GHz
-  - 32 GB RAM
-  - Gigabit Ethernet
-  - Cat 6 cable
+
+- Intel(R) Core(TM) i5-10400 CPU @ 2.90GHz
+- 32 GB RAM
+- Gigabit Ethernet
+- Cat 6 cable
 
 The container is limited to 512MB of memory and 2 CPUs. This means that the app can only use up to 2 cores at 2.90GHz.
 
 First, I use a conservative scenario:
-  - First stage: 30 seconds to ramp up to 25 users
-  - Second stage: 1 minute to ramp up to 50 users
-  - Third stage: 2 minutes to ramp up to 120 users
-  - Fourth stage: 1 minute to ramp down to 50 users
-  - Fifth stage: 30 seconds to cool down
+
+- First stage: 30 seconds to ramp up to 25 users
+- Second stage: 1 minute to ramp up to 50 users
+- Third stage: 2 minutes to ramp up to 120 users
+- Fourth stage: 1 minute to ramp down to 50 users
+- Fifth stage: 30 seconds to cool down
 
 The thresholds are:
-  - 95% of requests < 500ms
-  - 99% of requests < 1s
-  - Less than 5% errors
+
+- 95% of requests < 500ms
+- 99% of requests < 1s
+- Less than 5% errors
 
 The results are:
 
@@ -253,21 +256,22 @@ default ✓ [======================================] 000/120 VUs  5m0s
 There were indeed some errors, 0.3% of the requests failed. For me, taking into account how "homemade" is the deployment and the app itself, this is acceptable. The app was able to handle the load while maintaining 95% of the requests under 500ms and 99% under 1s. The average response time was 94.89ms.
 
 Then, I use a more aggressive scenario:
-  - First stage: 30 seconds to ramp up to 50 users
-  - Second stage: 1 minute to ramp up to 100 users
-  - Third stage: 2 minutes to ramp up to 200 users
-  - Fourth stage: 1 minute to ramp down to 100 users
-  - Fifth stage: 30 seconds to cool down
+
+- First stage: 30 seconds to ramp up to 50 users
+- Second stage: 1 minute to ramp up to 100 users
+- Third stage: 2 minutes to ramp up to 200 users
+- Fourth stage: 1 minute to ramp down to 100 users
+- Fifth stage: 30 seconds to cool down
 
 The results are:
 
 ```bash
 
-         /\      Grafana   /‾‾/  
-    /\  /  \     |\  __   /  /   
-   /  \/    \    | |/ /  /   ‾‾\ 
+         /\      Grafana   /‾‾/
+    /\  /  \     |\  __   /  /
+   /  \/    \    | |/ /  /   ‾‾\
   /          \   |   (  |  (‾)  |
- / __________ \  |_|\_\  \_____/ 
+ / __________ \  |_|\_\  \_____/
 
      execution: local
         script: .\script.js
@@ -333,6 +337,7 @@ running (5m06.1s), 000/200 VUs, 3050 complete and 3 interrupted iterations
 default ✓ [======================================] 000/200 VUs  5m0s
 ERRO[0306] thresholds on metrics 'http_req_duration' have been crossed
 ```
+
 These results are far worse. Eventhough the failed request threhold is still met, the app was not able to handle the load. The average response time was 912.17ms, which is not acceptable.
 
 This is a clear indicator that the app would need to be scaled if this amount of traffic is expected.
@@ -400,13 +405,15 @@ docker compose down
 ## Further improvements
 
 The app is far from being perfect. Here are some further improvements that could be made:
-  - There should be a system in place to manage database migrations. This can be done using [Knex's migration API](https://knexjs.org/guide/migrations.html#migration-api).
-  - There should be a better error handling system for database errors in the use cases.
-  - There should be a better separation of concerns between the different modules. For example, the users module should not depend on the restaurants module. While this is not a problem now, it could be in the future.
-  - There would be nice to have guards to check that users have access to resources and that the resources exist. Instead of repeating the same code for checking the access and existence in each use case.
-  - There should be a better system to handle permissions. Instead of using a simple guard, we would need to put in place a more granular system. For example, using [CASL](https://casl.js.org/).
+
+- There should be a system in place to manage database migrations. This can be done using <a href="https://knexjs.org/guide/migrations.html#migration-api" target="_blank">Knex's migration API</a>.
+- There should be a better error handling system for database errors in the use cases.
+- There should be a better separation of concerns between the different modules. For example, the users module should not depend on the restaurants module. While this is not a problem now, it could be in the future.
+- There would be nice to have guards to check that users have access to resources and that the resources exist. Instead of repeating the same code for checking the access and existence in each use case.
+- There should be a better system to handle permissions. Instead of using a simple guard, we would need to put in place a more granular system. For example, using <a href="https://casl.js.org/" target="_blank">CASL</a>.
 
 Regarding performance and scalability, the following improvements could be made:
-  - As stated in the [second step](#second-step) section, the statistics should be recalculated every X time and always access the calculation, not the raw data.
-  - A system for allowing users to refresh their access token would be nice, instead of having to log in again every now and then.
-  - If performance is a big issue, the underlying web framework could be changed to a more performant one. For example, [express](https://expressjs.com/) could be replaced with [Fastify](https://www.fastify.io/).
+
+- As stated in the [second step](#second-step) section, the statistics should be recalculated every X time and always access the calculation, not the raw data.
+- A system for allowing users to refresh their access token would be nice, instead of having to log in again every now and then.
+- If performance is a big issue, the underlying web framework could be changed to a more performant one. For example, <a href="https://expressjs.com/" target="_blank">express</a> could be replaced with <a href="https://www.fastify.io/" target="_blank">Fastify</a>.
