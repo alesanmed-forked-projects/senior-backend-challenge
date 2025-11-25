@@ -30,7 +30,7 @@ height="30"/>
 
 ## How to use the app?
 
-This app is deployed in the following URL: <a href="https://puchero.cloud.alesanchez.es" target="_blank">https://puchero.cloud.alesanchez.es</a>
+This app is deployed in the following URL: <a href="https://puchero.cloud.alesanchez.es/api" target="_blank">https://puchero.cloud.alesanchez.es</a>
 
 You can test the app using the following credentials:
 
